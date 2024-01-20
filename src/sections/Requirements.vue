@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 const showRequirements = ref(true)
+const showExample = ref(true)
 </script>
 
 <template>
@@ -11,10 +12,6 @@ const showRequirements = ref(true)
       [{{ showRequirements ? 'Hide' : 'Show' }}]
     </button>
   </div>
-  <figure v-if="showRequirements" class="bg-slate-200 rounded-md mb-4 p-2">
-    <figcaption class="mb-2">Example Implementation</figcaption>
-    <img src="@/assets/example.png" class="h-full rounded overflow-hidden" />
-  </figure>
   <ul v-if="showRequirements" class="list-disc list-outside ml-6">
     <li>
       If it wasn't already clear, we use
@@ -65,6 +62,21 @@ const showRequirements = ref(true)
       view
     </li>
     <li>There should be an ability to add a new row/record</li>
+    <li>
+      For inspiration, here's an example of what an implementation might look like:
+      <figure class="bg-slate-200 rounded-md my-2 p-2">
+        <figcaption class="flex justify-around" :class="{ 'mb-2': showExample }">
+          <span class="flex-auto"> Example Implementation </span>
+          <button
+            class="rounded bg-slate-400 px-3 py-1 text-xs text-white"
+            @click="showExample = !showExample"
+          >
+            {{ showExample ? 'Hide' : 'Show' }}
+          </button>
+        </figcaption>
+        <img v-if="showExample" src="@/assets/example.png" class="h-full rounded overflow-hidden" />
+      </figure>
+    </li>
     <li>You should be able to see your solution live update below:</li>
   </ul>
 </template>
