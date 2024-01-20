@@ -59,7 +59,7 @@ const showRequirements = ref(true)
       make changes to the mock api as needed
     </li>
     <li>The "Reset Data" button at the bottom is there to help clear the mock api store</li>
-    <li>The default view should be a tabular or list form (of people)</li>
+    <li>The default view should be a tabular or list form (of dates)</li>
     <li>
       There should be an ability to edit each row/record, either inline or through an intermediary
       view
