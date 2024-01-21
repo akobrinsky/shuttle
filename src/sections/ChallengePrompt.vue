@@ -11,6 +11,7 @@ const showPrompt = ref(true)
       <div class="flex-none">
         <button
           class="rounded px-4 py-2 bg-slate-400 text-white font-semibold"
+          data-testid="prompt-toggle"
           @click="showPrompt = !showPrompt"
         >
           {{ showPrompt ? 'Hide' : 'Show' }} Prompt
@@ -18,7 +19,7 @@ const showPrompt = ref(true)
       </div>
     </div>
     <template v-if="showPrompt">
-      <p class="mb-2">
+      <p class="mb-2" data-testid="welcome-message">
         Hi! Thanks for your interest in joining the Shuttle engineering team! We are thrilled at the
         prospect of having someone with your skills and experience contribute to our engineering
         team.
