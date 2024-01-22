@@ -3,7 +3,6 @@ import ShuttleLogo from '@/assets/shuttle_logo_square_dark.svg?component'
 import ChallengePrompt from '@/sections/ChallengePrompt.vue'
 import Requirements from '@/sections/Requirements.vue'
 import YourSolution from '@/sections/YourSolution.vue'
-import { resetData } from '@/mock-api/api'
 </script>
 
 <template>
@@ -17,12 +16,8 @@ import { resetData } from '@/mock-api/api'
     <div class="flex-none w-1/2 mb-6">
       <Requirements />
     </div>
-    <div class="flex-none w-full md:w-2/3 mb-4 m-auto">
+    <div class="flex-none w-full md:w-2/3 mb-4">
       <YourSolution />
     </div>
-    <div class="flex-none m-auto">
-      <button class="rounded bg-primary text-white py-2 px-4" @click="resetData">Reset Data</button>
-    </div>
-    <div class="flex-auto py-4"></div>
   </div>
 </template>

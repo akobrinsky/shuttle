@@ -6,7 +6,6 @@ function findByTestId(id) {
 }
 
 function findByText(selector, text) {
-  console.log({ selector })
   const result = this[typeof selector === 'string' ? 'findAll' : 'findAllComponents'](selector)
     .filter((f) => f.text() === text)
     .at(0)

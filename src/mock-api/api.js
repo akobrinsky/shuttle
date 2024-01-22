@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { uniqBy } from 'lodash'
 import store from 'store2'
 
 const SEED_DATES = [
@@ -27,13 +28,21 @@ function getData() {
     return {
       id: faker.database.mongodbObjectId(),
       name,
-      date: faker.date.birthdate(),
+      date: faker.date.birthdate().toISOString(),
       relatedPerson: createRandomPerson(),
       notes: faker.datatype.boolean() ? faker.lorem.paragraph() : null,
       active: faker.datatype.boolean()
     }
   })
-  store.set('dates', dates)
+
+  // quick and simple way to persist related people from the seed data
+  const uniquePeople = uniqBy(
+    dates.map((date) => date.relatedPerson),
+    'email'
+  )
+  store.set('people', uniquePeople)
+  saveDates(dates)
+
   return dates
 }
 
@@ -48,18 +57,28 @@ function saveData(indexOrId, newData) {
     }
     dates[index] = newData
   }
-  store.set('dates', dates)
+  saveDates(dates)
+}
+
+function getPeople() {
+  const peopleFromStorage = store.get('people')
+  return peopleFromStorage || []
 }
 
 function addData(newData) {
   const dates = getData()
   dates.push(newData)
-  store.set('dates', dates)
+  saveDates(dates)
 }
 
 function resetData() {
   store.remove('dates')
+  store.remove('people')
   console.log('Data reset')
 }
 
-export { getData, saveData, addData, resetData }
+function saveDates(dateData) {
+  store.set('dates', dateData)
+}
+
+export { getData, saveData, addData, resetData, saveDates, getPeople }

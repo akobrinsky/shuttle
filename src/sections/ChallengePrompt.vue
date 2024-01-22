@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const showPrompt = ref(true)
+const showPrompt = ref(false)
 </script>
 
 <template>

@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 
-const showRequirements = ref(true)
-const showExample = ref(true)
+const showRequirements = ref(false)
+const showExample = ref(false)
 </script>
 
 <template>
