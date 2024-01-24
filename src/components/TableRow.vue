@@ -49,10 +49,6 @@ const props = defineProps({
   date: {
     type: Object,
     default: null
-  },
-  bulkEdit: {
-    type: Boolean,
-    default: false
   }
 })
 
