@@ -58,7 +58,7 @@ const dateList = [
       lastName: 'Ward'
     },
     notes: null,
-    active: true,
+    active: false,
     idx: 2
   },
   {
@@ -155,12 +155,12 @@ describe('EventTable', () => {
     const firstRowCheckbox = wrapper.findComponent(TableRow).find('[data-testid="active-checkbox"]')
 
     expect(firstRowCheckbox.element.checked).toBe(false)
-    expect(dateStore.dateList[0].active).toBe(false)
+    expect(dateStore.dateList[2].active).toBe(false)
 
     await firstRowCheckbox.setValue(true)
 
     expect(firstRowCheckbox.element.checked).toBe(true)
-    expect(dateStore.dateList[0].active).toBe(true)
+    expect(dateStore.dateList[2].active).toBe(true)
   })
 
   it('deletes a row', async () => {

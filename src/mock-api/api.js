@@ -67,7 +67,12 @@ function getPeople() {
 
 function addData(newData) {
   const dates = getData()
-  dates.push(newData)
+
+  dates.push({
+    ...newData,
+    id: faker.database.mongodbObjectId()
+  })
+
   saveDates(dates)
 }
 

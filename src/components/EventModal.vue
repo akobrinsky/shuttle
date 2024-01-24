@@ -99,6 +99,10 @@ const props = defineProps({
   dateInfo: {
     type: Object,
     default: null
+  },
+  index: {
+    type: Number,
+    default: null
   }
 })
 
@@ -115,7 +119,7 @@ watchEffect(() => {
   if (props.dateInfo) {
     selectedRelation.value = props.dateInfo?.relatedPerson || ''
     eventName.value = props.dateInfo?.name || ''
-    eventIsActive.value = props.dateInfo?.active
+    eventIsActive.value = props.dateInfo?.active ?? true
     eventNotes.value = props.dateInfo?.notes || ''
 
     if (props.dateInfo?.date) {
@@ -153,7 +157,7 @@ function onSave() {
 
   const eventPayload = {
     date,
-    id: props.dateInfo?.id,
+    id: props.dateInfo?.id || null,
     name: eventName.value,
     relatedPerson: selectedRelation.value,
     notes: eventNotes.value,
@@ -161,7 +165,9 @@ function onSave() {
   }
 
   if (inEditMode.value) {
-    dateStore.updateDate(eventPayload.id, eventPayload)
+    const { id, originalIndex } = props.dateInfo
+    const indexOrId = id ?? originalIndex
+    dateStore.updateDate(indexOrId, eventPayload)
   } else {
     dateStore.addEvent(eventPayload)
   }

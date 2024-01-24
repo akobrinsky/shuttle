@@ -1,6 +1,6 @@
 <template>
   <div class="block md:flex items-center justify-between mb-4">
-    <h1 class="flex-auto text-3xl font-bold text-slate-600 mb-4 md:mb0">Significant Dates</h1>
+    <h1 class="flex-auto text-3xl font-bold text-slate-600 mb-4 md:mb-0">Significant Dates</h1>
     <button class="rounded bg-primary text-white py-1 px-3 mr-2" @click="dateStore.resetStore()">
       <div class="flex items-center">
         <span class="mr-1">Reset Data</span>
@@ -48,16 +48,20 @@
       </thead>
       <tbody>
         <TableRow
-          v-for="date in dateStore.dateList"
+          v-for="date in sortedDates"
           :key="date.id"
           :date="date"
           @edit:event="onEditEvent"
-          @changed:active="onActiveChange"
         />
       </tbody>
     </table>
   </div>
-  <EventModal :visible="editModalVisible" :date-info="eventToEdit" @cancel="onCancel" />
+  <EventModal
+    :visible="editModalVisible"
+    :date-info="eventToEdit"
+    :index="eventEditIdx"
+    @cancel="onCancel"
+  />
 </template>
 
 <script setup>
@@ -65,7 +69,7 @@ import TableRow from '@/components/TableRow.vue'
 import EventModal from '@/components/EventModal.vue'
 import { useDateStore } from '@/stores/date.store'
 import { ArrowUpIcon, PlusIcon, ArrowUturnLeftIcon } from '@heroicons/vue/24/outline'
-import { ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 const dateStore = useDateStore()
 
@@ -73,7 +77,7 @@ const editModalVisible = ref(false)
 const eventToEdit = ref(null)
 const sortedColumn = ref('date')
 const sortDirection = ref('desc')
-const sortedEvents = ref([])
+const eventEditIdx = ref(null)
 
 const headerCells = [
   {
@@ -133,22 +137,21 @@ const getComparator = (column) => {
   }[column]
 }
 
-watch(
-  [sortDirection, sortedColumn, dateStore.dateList],
-  () => {
-    const comparator = getComparator(sortedColumn.value)
-    sortedEvents.value = dateStore.dateList.sort(comparator)
-  },
-  { immediate: true }
-)
+const sortedDates = computed(() => {
+  const comparator = getComparator(sortedColumn.value)
+  const sorted = [...dateStore.dateList].sort(comparator)
+  return sorted
+})
 
-const onActiveChange = (event) => {
-  dateStore.toggleEventActive(event.id)
-}
+const onEditEvent = (indexOrId) => {
+  if (typeof indexOrId === 'number') eventEditIdx.value = indexOrId
 
-const onEditEvent = (id) => {
-  editModalVisible.value = true
-  eventToEdit.value = dateStore.dateList.find((date) => date.id === id)
+  try {
+    eventToEdit.value = dateStore.findByIndexOrId(indexOrId)
+    if (eventToEdit.value) editModalVisible.value = true
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 const onCancel = () => {
