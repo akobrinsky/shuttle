@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-between mb-4">
-    <h1 class="flex-auto mb-4 text-3xl font-bold text-slate-600">Significant Dates</h1>
+    <h1 class="flex-auto text-3xl font-bold text-slate-600">Significant Dates</h1>
     <button class="rounded bg-primary text-white py-1 px-3 mr-2" @click="dateStore.resetStore()">
       <div class="flex items-center">
         <span class="mr-1">Reset Data</span>
