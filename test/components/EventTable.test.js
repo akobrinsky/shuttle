@@ -134,11 +134,11 @@ const peopleList = [
 const setup = () => mount(EventTable)
 
 describe('EventTable', () => {
-  let theStore
+  let dateStore
   beforeEach(() => {
     setActivePinia(createPinia())
-    theStore = useDateStore()
-    theStore.$patch({
+    dateStore = useDateStore()
+    dateStore.$patch({
       dateList,
       relatedPersonList: peopleList
     })
@@ -155,23 +155,23 @@ describe('EventTable', () => {
     const firstRowCheckbox = wrapper.findComponent(TableRow).find('[data-testid="active-checkbox"]')
 
     expect(firstRowCheckbox.element.checked).toBe(false)
-    expect(theStore.dateList[0].active).toBe(false)
+    expect(dateStore.dateList[0].active).toBe(false)
 
     await firstRowCheckbox.setValue(true)
 
     expect(firstRowCheckbox.element.checked).toBe(true)
-    expect(theStore.dateList[0].active).toBe(true)
+    expect(dateStore.dateList[0].active).toBe(true)
   })
 
   it('deletes a row', async () => {
     const wrapper = setup()
     const thirdRow = wrapper.findAllComponents(TableRow).at(2)
 
-    expect(theStore.dateList.length).toBe(5)
+    expect(dateStore.dateList.length).toBe(5)
 
     await thirdRow.find('[data-testid="remove-event-button"]').trigger('click')
 
-    expect(theStore.dateList.length).toBe(4)
+    expect(dateStore.dateList.length).toBe(4)
     expect(wrapper.findAllComponents(TableRow).length).toBe(4)
   })
 

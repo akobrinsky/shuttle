@@ -123,13 +123,7 @@ watchEffect(() => {
       const timezoneOffsetMs = dateWithOffset.getTimezoneOffset() * 60 * 1000
       const dateWithOffsetAdjusted = new Date(dateWithOffset.getTime() + timezoneOffsetMs)
 
-      const year = dateWithOffsetAdjusted.getFullYear()
-      const month = (dateWithOffsetAdjusted.getMonth() + 1).toString().padStart(2, '0')
-      const day = dateWithOffsetAdjusted.getDate().toString().padStart(2, '0')
-
-      const formattedDate = `${year}-${month}-${day}`
-
-      eventDate.value = formattedDate
+      eventDate.value = dateWithOffsetAdjusted.toISOString().substring(0, 10)
     }
   }
 })
