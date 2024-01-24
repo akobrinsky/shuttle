@@ -1,11 +1,20 @@
 <template>
   <tr data-testid="event-row">
-    <td class="font-medium text-gray-900 whitespace-nowrap">
-      {{ date.name }}
+    <td>
+      <div class="flex items-center font-medium text-gray-900 whitespace-nowrap">
+        <button
+          class="font-medium text-gray-500 p-2 hover:bg-gray-200 rounded-md mr-1"
+          data-testid="edit-event-button"
+          @click="emit('edit:event', date.id)"
+        >
+          <PencilSquareIcon class="h-3.5 w-3.5" />
+        </button>
+        <span>{{ date.name }}</span>
+      </div>
     </td>
     <td><ContactDateCell :date="date.date" /></td>
     <td><ContactRelationshiopCell :related-person="date.relatedPerson" /></td>
-    <td>{{ date.notes }}</td>
+    <td class="min-w-80">{{ date.notes }}</td>
     <td>
       <input
         :id="`event-active-${date.id}`"
@@ -17,22 +26,13 @@
       />
     </td>
     <td>
-      <div class="flex gap-1">
-        <button
-          class="font-medium text-gray-600 p-2 hover:bg-gray-200 rounded-md"
-          data-testid="edit-event-button"
-          @click="emit('edit:event', date.id)"
-        >
-          <PencilSquareIcon class="h-3.5 w-3.5" />
-        </button>
-        <button
-          class="font-medium text-red-600 p-2 hover:bg-gray-200 rounded-md"
-          data-testid="remove-event-button"
-          @click="dateStore.removeDate([date.id])"
-        >
-          <TrashIcon class="h-3.5 w-3.5" />
-        </button>
-      </div>
+      <button
+        class="font-medium text-red-600 p-2 hover:bg-gray-200 rounded-md"
+        data-testid="remove-event-button"
+        @click="dateStore.removeDate([date.id])"
+      >
+        <TrashIcon class="h-3.5 w-3.5" />
+      </button>
     </td>
   </tr>
 </template>
@@ -65,6 +65,6 @@ tr {
 }
 
 td {
-  @apply px-6 py-4;
+  @apply p-3;
 }
 </style>

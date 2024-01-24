@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center justify-between mb-4">
-    <h1 class="flex-auto text-3xl font-bold text-slate-600">Significant Dates</h1>
+  <div class="block md:flex items-center justify-between mb-4">
+    <h1 class="flex-auto text-3xl font-bold text-slate-600 mb-4 md:mb0">Significant Dates</h1>
     <button class="rounded bg-primary text-white py-1 px-3 mr-2" @click="dateStore.resetStore()">
       <div class="flex items-center">
         <span class="mr-1">Reset Data</span>
@@ -19,12 +19,17 @@
     <table class="w-full text-sm text-left text-gray-500">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
-          <th v-for="{ sortable, name, label } in headerCells" :key="name" class="px-6 py-3">
+          <th
+            v-for="{ sortable, name, label } in headerCells"
+            :key="name"
+            class="p-3"
+            :class="{ '!px-0': name === 'active' }"
+          >
             <div
               class="flex items-center select-none"
               :class="{
                 'cursor-pointer': sortable,
-                'text-green-700': sortedColumn === name
+                'text-green-700': sortedColumn === name && sortable
               }"
               @click="onColumnSort({ name: name })"
             >
@@ -67,7 +72,7 @@ const dateStore = useDateStore()
 const editModalVisible = ref(false)
 const eventToEdit = ref(null)
 const sortedColumn = ref('date')
-const sortDirection = ref('asc')
+const sortDirection = ref('desc')
 const sortedEvents = ref([])
 
 const headerCells = [

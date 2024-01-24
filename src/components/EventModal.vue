@@ -176,7 +176,7 @@ function onSave() {
 }
 
 .date-modal-content {
-  @apply p-4 max-w-md max-h-full w-1/2 bg-white rounded-2xl;
+  @apply p-4 md:max-w-md h-full md:h-auto w-full md:w-1/2 bg-white md:rounded-2xl;
 }
 
 label {

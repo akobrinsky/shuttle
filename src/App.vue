@@ -16,7 +16,7 @@ import YourSolution from '@/sections/YourSolution.vue'
     <div class="flex-none w-1/2 mb-6">
       <Requirements />
     </div>
-    <div class="flex-none w-full md:w-2/3 mb-4">
+    <div class="flex-none w-full md:w-2/3 mb-4 px-5 md:px-0">
       <YourSolution />
     </div>
   </div>
