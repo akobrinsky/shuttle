@@ -11,7 +11,6 @@
             type="text"
             name="event-name"
             placeholder="Enter event name"
-            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             required
           />
         </div>
@@ -23,19 +22,12 @@
             type="date"
             name="event-date"
             pattern="\d{4}-\d{2}-\d{2}"
-            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             required
           />
         </div>
         <div>
           <label for="relationship">Relationship *</label>
-          <select
-            id="relationship"
-            v-model="selectedRelation"
-            name="event-relationship"
-            required
-            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2"
-          >
+          <select id="relationship" v-model="selectedRelation" name="event-relationship" required>
             <option disabled :value="null" selected>Choose relation</option>
             <option
               v-for="relation in dateStore.relatedPersonList"
@@ -54,7 +46,6 @@
             name="event-notes"
             placeholder="Enter notes"
             :rows="5"
-            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
         <div class="flex items-center">
@@ -70,7 +61,7 @@
 
         <div class="flex gap-2">
           <button
-            class="w-1/2 text-gray-500 bg-white rounded-lg border border-gray-400 hover:border-gray-700"
+            class="w-1/2 text-gray-600 bg-white rounded-lg border border-gray-700 hover:border-gray-900"
             @click="onClose"
           >
             Cancel
@@ -194,5 +185,11 @@ select {
   background: no-repeat
     url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")
     right 0.5rem center / 1.5em 1.5em;
+}
+
+input:not([type='checkbox']),
+textarea,
+select {
+  @apply border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5;
 }
 </style>

@@ -35,12 +35,11 @@ What could be added:
 3. more attention to mobile behavior, could maybe collapse to individual table views for each event
 4. bulk deletion - select multiple or all rows
 5. make prettier
-6. only use modal for event creation and use inline editing for existing events
-7. unhappy paths handled (error paths, empty state, etc)
+6. add inline editing on top of modal editing?
+7. unhappy paths better handled (error paths, empty state, etc)
+8. pagination
 
 ## Screenshots
 ![Screenshot 2024-01-24 at 9 19 35 AM](https://github.com/akobrinsky/shuttle/assets/22509914/12a110ed-e097-4e9f-a744-a95a5fc4e234)
 
 ![Screenshot 2024-01-24 at 9 19 49 AM](https://github.com/akobrinsky/shuttle/assets/22509914/92468d65-3998-4980-8e07-d9b7207e1c1b)
-
-![Mobile Modal](https://github.com/akobrinsky/shuttle/assets/22509914/fd852e6e-fd0b-4a1b-8704-620e08a1eaed)

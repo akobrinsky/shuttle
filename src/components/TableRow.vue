@@ -1,5 +1,5 @@
 <template>
-  <tr data-testid="event-row">
+  <tr>
     <td>
       <div class="flex items-center font-medium text-gray-900 whitespace-nowrap">
         <button
@@ -12,7 +12,7 @@
         <span>{{ date.name }}</span>
       </div>
     </td>
-    <td><ContactDateCell :date="date.date" /></td>
+    <td><EventDateCell :date="date.date" /></td>
     <td><ContactRelationshiopCell :related-person="date.relatedPerson" /></td>
     <td class="min-w-80">{{ date.notes }}</td>
     <td>
@@ -39,7 +39,7 @@
 
 <script setup>
 import { ref, watchEffect } from 'vue'
-import ContactDateCell from '@/components/ContactDateCell.vue'
+import EventDateCell from '@/components/EventDateCell.vue'
 import ContactRelationshiopCell from '@/components/ContactRelationshiopCell.vue'
 import { useDateStore } from '@/stores/date.store'
 import { TrashIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'

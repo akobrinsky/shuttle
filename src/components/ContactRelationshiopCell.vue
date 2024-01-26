@@ -1,8 +1,8 @@
 <template>
-  <div class="text-center flex items-center w-44">
+  <div class="flex items-center w-44">
     <img
       :src="relatedPerson?.avatar"
-      :alt="relatedPerson?.name + ' image'"
+      :alt="`${firstOrFullName}'s avatar`"
       class="h-8 w-8 rounded-full mr-2"
     />
     <span class="mr-1 truncate">{{ firstOrFullName }}</span>

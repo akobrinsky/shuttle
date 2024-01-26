@@ -104,6 +104,16 @@ const headerCells = [
     name: 'active'
   }
 ]
+const relationshipComparator = (event) => event.relatedPerson?.name?.toLowerCase()
+const titleComparator = (event) => event.name?.toLowerCase()
+
+const getComparator = (column) => {
+  return {
+    date: 'date',
+    name: titleComparator,
+    relatedPerson: relationshipComparator
+  }[column]
+}
 
 const sortedDates = computed(() => {
   const comparator = getComparator(sortedColumn.value)
@@ -115,17 +125,6 @@ const sortedDates = computed(() => {
 
   return sorted
 })
-
-const relationshipComparator = (event) => event.relatedPerson?.name?.toLowerCase()
-const titleComparator = (event) => event.name?.toLowerCase()
-
-const getComparator = (column) => {
-  return {
-    date: 'date',
-    name: titleComparator,
-    relatedPerson: relationshipComparator
-  }[column]
-}
 
 const onEditEvent = (indexOrId) => {
   if (typeof indexOrId === 'number') eventEditIdx.value = indexOrId
