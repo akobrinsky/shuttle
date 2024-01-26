@@ -13,7 +13,7 @@
       </div>
     </td>
     <td><EventDateCell :date="date.date" /></td>
-    <td><ContactRelationshiopCell :related-person="date.relatedPerson" /></td>
+    <td><EventRelationshiopCell :related-person="date.relatedPerson" /></td>
     <td class="min-w-80">{{ date.notes }}</td>
     <td>
       <input
@@ -40,7 +40,7 @@
 <script setup>
 import { ref, watchEffect } from 'vue'
 import EventDateCell from '@/components/EventDateCell.vue'
-import ContactRelationshiopCell from '@/components/ContactRelationshiopCell.vue'
+import EventRelationshiopCell from '@/components/EventRelationshiopCell.vue'
 import { useDateStore } from '@/stores/date.store'
 import { TrashIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 
