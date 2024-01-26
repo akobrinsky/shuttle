@@ -70,7 +70,7 @@ import EventModal from '@/components/EventModal.vue'
 import { useDateStore } from '@/stores/date.store'
 import { ArrowUpIcon, PlusIcon, ArrowUturnLeftIcon } from '@heroicons/vue/24/outline'
 import { computed, ref } from 'vue'
-
+import { sortBy } from 'lodash'
 const dateStore = useDateStore()
 
 const editModalVisible = ref(false)
@@ -105,43 +105,27 @@ const headerCells = [
   }
 ]
 
-const dateComparator = (a, b) => {
-  const dateA = new Date(a.date)
-  const dateB = new Date(b.date)
+const sortedDates = computed(() => {
+  const comparator = getComparator(sortedColumn.value)
+  let sorted = sortBy(dateStore.dateList, comparator)
 
-  if (sortDirection.value === 'asc') {
-    return dateA - dateB
-  } else {
-    return dateB - dateA
+  if (sortDirection.value !== 'asc') {
+    sorted = sorted.reverse()
   }
-}
 
-const nameComparator = (a, b) => {
-  return sortDirection.value === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
-}
+  return sorted
+})
 
-const relationshipComparator = (a, b) => {
-  const { relatedPerson: aRelatedPerson } = a
-  const { relatedPerson: bRelatedPerson } = b
-
-  return sortDirection.value === 'asc'
-    ? aRelatedPerson.lastName.localeCompare(bRelatedPerson.lastName)
-    : bRelatedPerson.lastName.localeCompare(aRelatedPerson.lastName)
-}
+const relationshipComparator = (event) => event.relatedPerson?.name?.toLowerCase()
+const titleComparator = (event) => event.name?.toLowerCase()
 
 const getComparator = (column) => {
   return {
-    date: dateComparator,
-    name: nameComparator,
+    date: 'date',
+    name: titleComparator,
     relatedPerson: relationshipComparator
   }[column]
 }
-
-const sortedDates = computed(() => {
-  const comparator = getComparator(sortedColumn.value)
-  const sorted = [...dateStore.dateList].sort(comparator)
-  return sorted
-})
 
 const onEditEvent = (indexOrId) => {
   if (typeof indexOrId === 'number') eventEditIdx.value = indexOrId
