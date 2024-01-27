@@ -104,7 +104,7 @@ const headerCells = [
     name: 'active'
   }
 ]
-const relationshipComparator = (event) => event.relatedPerson?.name?.toLowerCase()
+const relationshipComparator = (event) => event.relatedPerson?.lastName?.toLowerCase()
 const titleComparator = (event) => event.name?.toLowerCase()
 
 const getComparator = (column) => {
