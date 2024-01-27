@@ -7,6 +7,8 @@ export const useDateStore = defineStore('dates', () => {
   const relatedPersonList = ref([])
 
   const initDateStore = () => {
+    /* originalIndex is a quick hacky way to have the right index for reference with the sorting in place
+    With more time, I'd bring the sorting to the store so the list in state's indices can be trusted */
     dateList.value = getData().map((date, originalIndex) => ({ ...date, originalIndex }))
     relatedPersonList.value = getPeople()
   }
