@@ -31,13 +31,14 @@ I had fun with this! I decided on the modal pattern in the interest of time. Thi
 
 What could be added:
 1. search
-2. close modal when clicking parent / clicking outside of the modal or when pressing escape
-3. more attention to mobile behavior, could maybe collapse to individual table views for each event
-4. bulk deletion - select multiple or all rows
-5. make prettier
-6. add inline editing on top of modal editing?
-7. unhappy paths better handled (error paths, empty state, etc)
-8. pagination
+2. add flows for creating new relationships
+3. close modal when clicking parent / clicking outside of the modal or when pressing escape
+4. more attention to mobile behavior, could maybe collapse to individual table views for each event
+5. bulk deletion - select multiple or all rows
+6. make prettier
+7. add inline editing on top of modal editing?
+8. unhappy paths better handled (error paths, empty state, etc)
+9. pagination
 
 ## Screenshots
 ![Screenshot 2024-01-24 at 9 19 35 AM](https://github.com/akobrinsky/shuttle/assets/22509914/12a110ed-e097-4e9f-a744-a95a5fc4e234)
