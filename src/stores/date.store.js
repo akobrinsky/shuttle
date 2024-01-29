@@ -12,13 +12,13 @@ export const useDateStore = defineStore('dates', () => {
   }
 
   const findEventById = (eventId) => {
-    const index = dateList.value.findIndex((date) => date.id === eventId)
+    const foundEvent = dateList.value.find((date) => date.id === eventId)
 
-    if (index === -1) {
+    if (!foundEvent) {
       throw new Error(`Could not find date with id ${eventId}`)
     }
 
-    return dateList.value[index]
+    return foundEvent
   }
 
   const editEventById = (eventId, payload) => {
@@ -31,12 +31,12 @@ export const useDateStore = defineStore('dates', () => {
     dateList.value[index] = payload
   }
 
-  const toggleEventActive = (indexOrId) => {
-    const eventToEdit = findEventById(indexOrId)
+  const toggleEventActive = (eventId) => {
+    const eventToEdit = findEventById(eventId)
 
     if (eventToEdit) {
       eventToEdit.active = !eventToEdit.active
-      saveData(indexOrId, eventToEdit)
+      saveData(eventId, eventToEdit)
     }
   }
 
@@ -55,8 +55,8 @@ export const useDateStore = defineStore('dates', () => {
     initDateStore()
   }
 
-  const removeDate = (indexOrId) => {
-    const eventToDelete = findEventById(indexOrId)
+  const removeDate = (eventId) => {
+    const eventToDelete = findEventById(eventId)
     const filteredDates = dateList.value.filter((date) => date.id !== eventToDelete.id)
     dateList.value = filteredDates
     saveDates(filteredDates)
