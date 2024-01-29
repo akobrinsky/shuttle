@@ -156,9 +156,8 @@ function onSave() {
   }
 
   if (inEditMode.value) {
-    const { id, originalIndex } = props.dateInfo
-    const indexOrId = id ?? originalIndex
-    dateStore.updateDate(indexOrId, eventPayload)
+    const { id } = props.dateInfo
+    dateStore.updateDate(id, eventPayload)
   } else {
     dateStore.addEvent(eventPayload)
   }

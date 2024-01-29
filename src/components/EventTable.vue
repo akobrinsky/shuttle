@@ -126,11 +126,11 @@ const sortedDates = computed(() => {
   return sorted
 })
 
-const onEditEvent = (indexOrId) => {
-  if (typeof indexOrId === 'number') eventEditIdx.value = indexOrId
+const onEditEvent = (eventId) => {
+  if (!eventId) return
 
   try {
-    eventToEdit.value = dateStore.findByIndexOrId(indexOrId)
+    eventToEdit.value = dateStore.findEventById(eventId)
     if (eventToEdit.value) editModalVisible.value = true
   } catch (err) {
     console.log(err)

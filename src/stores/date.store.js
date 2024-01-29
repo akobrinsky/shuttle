@@ -7,44 +7,32 @@ export const useDateStore = defineStore('dates', () => {
   const relatedPersonList = ref([])
 
   const initDateStore = () => {
-    /* originalIndex is a quick hacky way to have the right index for reference with the sorting in place
-    With more time, I'd bring the sorting to the store so the list in state's indices can be trusted */
-    dateList.value = getData().map((date, originalIndex) => ({ ...date, originalIndex }))
+    dateList.value = getData()
     relatedPersonList.value = getPeople()
   }
 
-  const findOrEditById = (id, updatedEvent) => {
-    const index = dateList.value.findIndex((date) => date.id === id)
+  const findEventById = (eventId) => {
+    const index = dateList.value.findIndex((date) => date.id === eventId)
+
     if (index === -1) {
-      throw new Error(`Could not find date with id ${id}`)
+      throw new Error(`Could not find date with id ${eventId}`)
     }
-    if (updatedEvent) {
-      dateList.value[index] = updatedEvent
-    } else {
-      return dateList.value[index]
-    }
+
+    return dateList.value[index]
   }
 
-  const findOrEditByIndex = (index, updatedEvent) => {
-    if (updatedEvent) {
-      dateList.value[index] = updatedEvent
-    } else {
-      const result = dateList.value[index]
-      if (!result) {
-        throw new Error(`Could not find date with index ${index}`)
-      }
-      return dateList.value[index]
-    }
-  }
+  const editEventById = (eventId, payload) => {
+    const index = dateList.value.findIndex((date) => date.id === eventId)
 
-  const findByIndexOrId = (indexOrId, updatedEvent) => {
-    return typeof indexOrId === 'number'
-      ? findOrEditByIndex(indexOrId, updatedEvent)
-      : findOrEditById(indexOrId, updatedEvent)
+    if (index === -1) {
+      throw new Error(`Could not find date with id ${eventId}`)
+    }
+
+    dateList.value[index] = payload
   }
 
   const toggleEventActive = (indexOrId) => {
-    const eventToEdit = findByIndexOrId(indexOrId)
+    const eventToEdit = findEventById(indexOrId)
 
     if (eventToEdit) {
       eventToEdit.active = !eventToEdit.active
@@ -52,32 +40,24 @@ export const useDateStore = defineStore('dates', () => {
     }
   }
 
-  const updateDate = (dateUUID, updatedEvent) => {
-    if (typeof dateUUID === 'number') {
-      findOrEditByIndex(dateUUID, updatedEvent)
-    } else {
-      findOrEditById(dateUUID, updatedEvent)
-    }
+  const updateDate = (eventId, payload) => {
+    if (!eventId) throw new Error('id is required')
 
-    saveData(dateUUID, updatedEvent)
+    editEventById(eventId, payload)
+
+    saveData(eventId, payload)
   }
 
   const addEvent = (event) => {
-    const eventWithOriginalIndex = {
-      ...event,
-      originalIndex: dateList.value.length
-    }
-    dateList.value.push(eventWithOriginalIndex)
+    dateList.value.push(event)
 
     addData(event)
+    initDateStore()
   }
 
   const removeDate = (indexOrId) => {
-    const eventToDelete = findByIndexOrId(indexOrId)
-    const filteredDates = dateList.value.filter(({ id }, index) => {
-      if (!id) return index !== eventToDelete.originalIndex
-      return id !== eventToDelete.id
-    })
+    const eventToDelete = findEventById(indexOrId)
+    const filteredDates = dateList.value.filter((date) => date.id !== eventToDelete.id)
     dateList.value = filteredDates
     saveDates(filteredDates)
   }
@@ -90,10 +70,10 @@ export const useDateStore = defineStore('dates', () => {
   return {
     addEvent,
     dateList,
-    findByIndexOrId,
     initDateStore,
     relatedPersonList,
     removeDate,
+    findEventById,
     resetStore,
     toggleEventActive,
     updateDate
